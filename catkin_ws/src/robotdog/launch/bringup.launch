@@ -1,0 +1,15 @@
+<launch>
+    <!-- Node UDP existant -->
+    <node pkg="robotdog" type="udp_pub_sub" name="udp_pub_sub" output="screen" args="lowlevel"/>
+
+    <!-- Services -->
+    <node pkg="robotdog" type="stand_up_srv" name="stand_up_srv"/>
+    <node pkg="robotdog" type="sit_srv" name="sit_srv"/>
+    <node pkg="robotdog" type="crouch_srv" name="crouch_srv"/>
+
+    <!-- Dispatcher -->
+    <node pkg="robotdog" type="cmd_dispatcher" name="cmd_dispatcher" output="screen"/>
+
+    <!-- Clavier -->
+    <node pkg="robotdog" type="keyboard_cmd" name="keyboard_cmd" output="screen"/>
+</launch>

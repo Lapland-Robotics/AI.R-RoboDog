@@ -1,0 +1,7 @@
+# Ignoring IDE files (VSCode, CLion, etc.)
+.vscode/
+.idea/
+
+# ignoring build folders
+catkin_ws/build/
+catkin_ws/devel/
