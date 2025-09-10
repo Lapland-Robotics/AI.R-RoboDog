@@ -16,6 +16,9 @@ find_package(catkin REQUIRED COMPONENTS
 find_package(Boost REQUIRED COMPONENTS system)
 
 catkin_package(
+  INCLUDE_DIRS include
+  LIBRARIES robotdog
+  CATKIN_DEPENDS unitree_legged_msgs unitree_legged_sdk unitree_legged_real
 )
 
 set(EXTRA_LIBS -pthread ${unitree_legged_sdk_LIBRARIES})
