@@ -42,7 +42,7 @@ int main(int argc, char **argv)
     ros::Publisher pub = nh.advertise<std_msgs::String>("/cmd", 10);
 
     std_msgs::String msg;
-    ROS_INFO("Press u=stand_up, s=sit, c=crouch, q=quit");
+    ROS_INFO("Press u=stand_up, s=sit, c=crouch, p=give paw, q=quit");
 
     while (ros::ok()) {
         char c = getch();
@@ -50,7 +50,7 @@ int main(int argc, char **argv)
         if (c == 'u') msg.data = "stand_up";
         else if (c == 's') msg.data = "sit";
         else if (c == 'c') msg.data = "crouch";
-        // else if (c == 'p') msg.data = "give paw";
+        else if (c == 'p') msg.data = "give_paw";
         else if (c == 'q') break;
         else continue;
 

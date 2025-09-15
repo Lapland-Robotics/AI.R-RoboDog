@@ -13,10 +13,10 @@ ros::Publisher lowPub;
 
 int count = 0;
 
-float targetPos[12] = {0.0, 1.3, -1.0,
-                        0.0, 1.3, -1.0,
-                        0.0, 1.57, -2.5,
-                        0.0, 1.57, -2.5};
+float targetPos[12] = {0.4, 1.3, -1.0,
+                       -0.4, 1.3, -1.0,
+                       -0.4, 1.7, -2.5,
+                       0.4, 1.7, -2.5};
 float startPos[12];
 float rate = 50;
 float duration = 2 * rate;   //steps

@@ -6,6 +6,7 @@
     <node pkg="robotdog" type="stand_up_srv" name="stand_up_srv"/>
     <node pkg="robotdog" type="sit_srv" name="sit_srv"/>
     <node pkg="robotdog" type="crouch_srv" name="crouch_srv"/>
+    <node pkg="robotdog" type="give_paw_srv" name="give_paw_srv"/>
 
     <!-- Dispatcher -->
     <node pkg="robotdog" type="cmd_dispatcher" name="cmd_dispatcher" output="screen"/>

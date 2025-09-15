@@ -21,9 +21,9 @@ void cmdCallback(const std_msgs::String::ConstPtr& msg)
     } else if (msg->data == "crouch") {
         ROS_INFO("Command: crouch");
         success = crouchClient.call(srv);
-    // } else if (msg->data == "give paw") {
-    //     ROS_INFO("Command: give paw");
-    //     success = givePawClient.call(srv);
+    } else if (msg->data == "give_paw") {
+        ROS_INFO("Command: give_paw");
+        success = givePawClient.call(srv);
     } else {
         ROS_WARN("Command unknown: %s", msg->data.c_str());
         return;
@@ -31,7 +31,7 @@ void cmdCallback(const std_msgs::String::ConstPtr& msg)
 
     if (success) {
         if (srv.response.success) {
-            ROS_INFO("RResponse: %s", srv.response.message.c_str());
+            ROS_INFO("Response: %s", srv.response.message.c_str());
         } else {
             ROS_WARN("Service called returned failure: %s", srv.response.message.c_str());
         }
@@ -48,14 +48,14 @@ int main(int argc, char **argv)
     standUpClient  = nh.serviceClient<std_srvs::Trigger>("/stand_up_srv");
     sitClient      = nh.serviceClient<std_srvs::Trigger>("/sit_srv");
     crouchClient   = nh.serviceClient<std_srvs::Trigger>("/crouch_srv");
-    // givePawClient  = nh.serviceClient<std_srvs::Trigger>("/give_paw_srv");
+    givePawClient  = nh.serviceClient<std_srvs::Trigger>("/give_paw_srv");
 
     // Wait for services to be available
     ROS_INFO("Waiting for services...");
     standUpClient.waitForExistence();
     sitClient.waitForExistence();
     crouchClient.waitForExistence();
-    // givePawClient.waitForExistence();
+    givePawClient.waitForExistence();
     ROS_INFO("All services are available.");
 
     ros::Subscriber sub = nh.subscribe("/cmd", 10, cmdCallback);
