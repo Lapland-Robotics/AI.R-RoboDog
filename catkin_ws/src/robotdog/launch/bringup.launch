@@ -1,6 +1,6 @@
 <launch>
     <!-- Node UDP existant -->
-    <node pkg="robotdog" type="udp_pub_sub" name="udp_pub_sub" output="screen" args="lowlevel"/>
+    <node pkg="robotdog" type="udp_ros" name="udp_ros" output="screen" args="lowlevel"/>
 
     <!-- Services -->
     <node pkg="robotdog" type="stand_up_srv" name="stand_up_srv"/>

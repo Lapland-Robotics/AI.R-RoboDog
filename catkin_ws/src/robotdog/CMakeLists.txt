@@ -29,9 +29,9 @@ include_directories(
         ${unitree_legged_sdk_INCLUDE_DIRS}
 )
 
-add_executable(udp_pub_sub src/udp_pub_sub.cpp)
-add_dependencies(udp_pub_sub ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(udp_pub_sub ${EXTRA_LIBS} ${catkin_LIBRARIES})
+add_executable(udp_ros src/udp_ros.cpp)
+add_dependencies(udp_ros ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(udp_ros ${EXTRA_LIBS} ${catkin_LIBRARIES})
 
 add_executable(state_pub src/state_pub.cpp)
 add_dependencies(state_pub ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
@@ -77,9 +77,8 @@ add_executable(give_paw_srv src/give_paw_srv.cpp)
 add_dependencies(give_paw_srv ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(give_paw_srv ${EXTRA_LIBS} ${catkin_LIBRARIES})
 
-
 install(TARGETS
-        udp_pub_sub
+        udp_ros
         state_pub
         motor_pose
 #        stand_up
