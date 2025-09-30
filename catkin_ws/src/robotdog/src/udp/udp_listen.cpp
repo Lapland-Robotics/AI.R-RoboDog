@@ -4,14 +4,14 @@
 #include <unitree_legged_msgs/LowCmd.h>
 #include <unitree_legged_msgs/LowState.h>
 #include "unitree_legged_sdk/unitree_legged_sdk.h"
-#include "convert.h"
+#include "utils/convert.h"
 
 using namespace UNITREE_LEGGED_SDK;
 
 ros::Publisher pubHigh;
 ros::Publisher pubLow;
 
-constexpr int MAX_MISSES = 50; // nombre de cycles Recv() ratés avant reconnexion
+constexpr int MAX_MISSES = 50;
 
 class custom
 {
@@ -82,28 +82,9 @@ public:
             }
         }
     }
-
-    void sendHeartbeat() {
-        // envoi d’un paquet minimal pour maintenir la connexion
-        // pour low level, envoie lowCmd vide
-        lowUdp.SetSend(lowCmd);
-        lowUdp.Send();
-        highUdp.SetSend(highCmd);
-        highUdp.Send();
-    }
 };
 
 custom custom;
-
-void highCmdCallback(const unitree_legged_msgs::HighCmd::ConstPtr &msg)
-{
-    custom.highCmd = rosMsg2Cmd(msg);
-}
-
-void lowCmdCallback(const unitree_legged_msgs::LowCmd::ConstPtr &msg)
-{
-    custom.lowCmd = rosMsg2Cmd(msg);
-}
 
 int main(int argc, char **argv)
 {
@@ -118,31 +99,25 @@ int main(int argc, char **argv)
 
     if (strcasecmp(argv[1], "LOWLEVEL") == 0)
     {
-        ros::Subscriber subLow = nh.subscribe("low_cmd", 1, lowCmdCallback);
         pubLow = nh.advertise<unitree_legged_msgs::LowState>("low_state", 1);
 
-        LoopFunc loopUdpSend("low_udp_send", 0.002, 3, [objectPtr = &custom] { objectPtr->lowUdpSend(); });
-        LoopFunc loopUdpRecv("low_udp_recv", 0.002, 3, [objectPtr = &custom] { objectPtr->lowUdpRecv(); });
-        LoopFunc loopHeartbeat("heartbeat", 0.02, 3, [objectPtr = &custom] { objectPtr->sendHeartbeat(); });
+        LoopFunc loopUdpSend("low_udp_send", 0.02, 3, [objectPtr = &custom] { objectPtr->lowUdpSend(); });
+        LoopFunc loopUdpRecv("low_udp_recv", 0.02, 3, [objectPtr = &custom] { objectPtr->lowUdpRecv(); });
 
         loopUdpSend.start();
         loopUdpRecv.start();
-        loopHeartbeat.start();
 
         ros::spin();
     }
     else if (strcasecmp(argv[1], "HIGHLEVEL") == 0)
     {
-        ros::Subscriber subHigh = nh.subscribe("high_cmd", 1, highCmdCallback);
         pubHigh = nh.advertise<unitree_legged_msgs::HighState>("high_state", 1);
 
-        LoopFunc loopUdpSend("high_udp_send", 0.002, 3, [objectPtr = &custom] { objectPtr->highUdpSend(); });
-        LoopFunc loopUdpRecv("high_udp_recv", 0.002, 3, [objectPtr = &custom] { objectPtr->highUdpRecv(); });
-        LoopFunc loopHeartbeat("heartbeat", 0.02, 3, [objectPtr = &custom] { objectPtr->sendHeartbeat(); });
+        LoopFunc loopUdpSend("high_udp_send", 0.02, 3, [objectPtr = &custom] { objectPtr->highUdpSend(); });
+        LoopFunc loopUdpRecv("high_udp_recv", 0.02, 3, [objectPtr = &custom] { objectPtr->highUdpRecv(); });
 
         loopUdpSend.start();
         loopUdpRecv.start();
-        loopHeartbeat.start();
 
         ros::spin();
     }

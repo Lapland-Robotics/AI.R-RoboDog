@@ -1,0 +1,7 @@
+<launch>
+    <!-- UDP node -->
+    <node pkg="robotdog" type="udp_listen" name="udp_listen" output="screen" args="highlevel"/>
+
+    <!-- High State Logger -->
+    <node pkg="robotdog" type="high_state_logger" name="high_state_logger" output="screen"/>
+</launch>

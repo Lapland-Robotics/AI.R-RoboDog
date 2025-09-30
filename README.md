@@ -13,8 +13,6 @@ cd AI.R-RoboDog
 git submodule update --init --recursive
 ```
 
-> Please notify any missing dependencies or error.
-
 # Build and source the project
 
 To build and source the project, you first need to move in the folder of the repo, then use the following command.
@@ -44,10 +42,10 @@ roslaunch robotdog bringup.launch
 
 This launch file will start all necessary node and services to use the demo. You can now command the Unitree Go1 robot to perform action using the corresponding keys. See table below :
 
-| Key | Action |
-| -------- | ------- |
-| 'u' | stand up |
-| 's' | sit down |
-| 'c' | crouch |
-| 'q' | quit demo |
-
+| Key | Action | Note |
+| -------- | ------- | ------- |
+| 'u' | stand up    | |
+| 's' | sit down    | |
+| 'c' | crouch      | |
+| 'g' | give paw    | Robot will sit down first if needed |
+| 'q' | quit demo   | |

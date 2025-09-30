@@ -29,67 +29,57 @@ include_directories(
         ${unitree_legged_sdk_INCLUDE_DIRS}
 )
 
-add_executable(udp_ros src/udp_ros.cpp)
+add_executable(udp_ros src/udp/udp_ros.cpp)
 add_dependencies(udp_ros ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(udp_ros ${EXTRA_LIBS} ${catkin_LIBRARIES})
 
-add_executable(state_pub src/state_pub.cpp)
-add_dependencies(state_pub ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(state_pub ${EXTRA_LIBS} ${catkin_LIBRARIES})
+add_executable(udp_listen src/udp/udp_listen.cpp)
+add_dependencies(udp_listen ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(udp_listen ${EXTRA_LIBS} ${catkin_LIBRARIES})
 
-add_executable(motor_pose src/motor_pose.cpp)
-add_dependencies(motor_pose ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(motor_pose ${EXTRA_LIBS} ${catkin_LIBRARIES})
+add_executable(high_state_logger src/udp/high_state_logger.cpp)
+add_dependencies(high_state_logger ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(high_state_logger ${EXTRA_LIBS} ${catkin_LIBRARIES})
 
-#add_executable(stand_up src/stand_up.cpp)
-#add_dependencies(stand_up ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-#target_link_libraries(stand_up ${EXTRA_LIBS} ${catkin_LIBRARIES})
-
-#add_executable(crouch src/crouch.cpp)
-#add_dependencies(crouch ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-#target_link_libraries(crouch ${EXTRA_LIBS} ${catkin_LIBRARIES})
-
-#add_executable(sit src/sit.cpp)
-#add_dependencies(sit ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-#target_link_libraries(sit ${EXTRA_LIBS} ${catkin_LIBRARIES})
-
-add_executable(keyboard_cmd src/keyboard_cmd.cpp)
+add_executable(keyboard_cmd src/cmd/keyboard_cmd.cpp)
 add_dependencies(keyboard_cmd ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(keyboard_cmd ${EXTRA_LIBS} ${catkin_LIBRARIES})
 
-add_executable(cmd_dispatcher src/cmd_dispatcher.cpp)
+add_executable(cmd_dispatcher src/cmd/cmd_dispatcher.cpp)
 add_dependencies(cmd_dispatcher ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(cmd_dispatcher ${EXTRA_LIBS} ${catkin_LIBRARIES})
 
-add_executable(stand_up_srv src/stand_up_srv.cpp)
+add_executable(stand_up_srv src/movement_servers/stand_up_srv.cpp)
 add_dependencies(stand_up_srv ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(stand_up_srv ${EXTRA_LIBS} ${catkin_LIBRARIES})
 
-add_executable(crouch_srv src/crouch_srv.cpp)
+add_executable(crouch_srv src/movement_servers/crouch_srv.cpp)
 add_dependencies(crouch_srv ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(crouch_srv ${EXTRA_LIBS} ${catkin_LIBRARIES})
 
-add_executable(sit_srv src/sit_srv.cpp)
+add_executable(sit_srv src/movement_servers/sit_srv.cpp)
 add_dependencies(sit_srv ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(sit_srv ${EXTRA_LIBS} ${catkin_LIBRARIES})
 
-add_executable(give_paw_srv src/give_paw_srv.cpp)
+add_executable(give_paw_srv src/movement_servers/give_paw_srv.cpp)
 add_dependencies(give_paw_srv ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(give_paw_srv ${EXTRA_LIBS} ${catkin_LIBRARIES})
 
+add_executable(roll_srv src/movement_servers/roll_srv.cpp)
+add_dependencies(roll_srv ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(roll_srv ${EXTRA_LIBS} ${catkin_LIBRARIES})
+
 install(TARGETS
         udp_ros
-        state_pub
-        motor_pose
-#        stand_up
-#        crouch
-#        sit
+        udp_listen
+        high_state_logger
         keyboard_cmd
         cmd_dispatcher
         stand_up_srv
         crouch_srv
         sit_srv
         give_paw_srv
+        roll_srv
         RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
