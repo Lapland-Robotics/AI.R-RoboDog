@@ -11,7 +11,7 @@ using namespace UNITREE_LEGGED_SDK;
 ros::Publisher pubHigh;
 ros::Publisher pubLow;
 
-constexpr int MAX_MISSES = 50; // nombre de cycles Recv() ratés avant reconnexion
+constexpr int MAX_MISSES = 50;
 
 class custom
 {
@@ -52,7 +52,7 @@ public:
             lowUdp.GetRecv(lowState);
             unitree_legged_msgs::LowState lowStateRos = state2rosMsg(lowState);
             pubLow.publish(lowStateRos);
-            lowMisses = 0; // reset compteur
+            lowMisses = 0;
         } else {
             lowMisses++;
             if (lowMisses > MAX_MISSES) {
@@ -84,8 +84,6 @@ public:
     }
 
     void sendHeartbeat() {
-        // envoi d’un paquet minimal pour maintenir la connexion
-        // pour low level, envoie lowCmd vide
         lowUdp.SetSend(lowCmd);
         lowUdp.Send();
         highUdp.SetSend(highCmd);

@@ -1,5 +1,5 @@
 <launch>
-    <!-- Node UDP existant -->
+    <!-- UDP node -->
     <node pkg="robotdog" type="udp_ros" name="udp_ros" output="screen" args="lowlevel"/>
 
     <!-- Services -->
@@ -11,6 +11,6 @@
     <!-- Dispatcher -->
     <node pkg="robotdog" type="cmd_dispatcher" name="cmd_dispatcher" output="screen"/>
 
-    <!-- Clavier -->
+    <!-- Keyboard -->
     <node pkg="robotdog" type="keyboard_cmd" name="keyboard_cmd" output="screen"/>
 </launch>
